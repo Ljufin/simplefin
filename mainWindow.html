@@ -9,8 +9,8 @@
 
 <!-- Header/Navbar -->
 <nav>
-  <div class="nav-wrapper blue darken-3 z-depth-5">
-    <a class="brand-logo center blue darken-3">SimpleFin</a>
+  <div class="nav-wrapper blue darken-1 z-depth-5">
+    <a class="brand-logo center blue darken-1">SimpleFin</a>
   </div>
 </nav>
 
@@ -53,24 +53,64 @@
   <!-- Balance and total budget cards -->
   <div class="row">
       <div class="col s12 m6">
-        <div class="card blue darken-1 z-depth-2">
+        <div class="card blue darken-3 z-depth-2">
           <div class="card-content white-text">
-            <span class="card-title">Current Balance</span>
+            <span class="card-title">Current Balance:</span>
             <p><font size="12">$2,717.87</font></p>
           </div>
         </div>
       </div>
       <div class="col s12 m6">
-        <div class="card blue darken-1 z-depth-2">
+        <div class="card blue darken-3 z-depth-2">
           <div class="card-content white-text">
-            <span class="card-title">Monthly Budget Left</span>
+            <span class="card-title">Monthly Budget Left:</span>
             <p><font size="12">$77.34</font></p>
           </div>
         </div>
       </div>
     </div>
 
+<!-- mini-budgets -->
 
+<div id="plotly_div" style="width:600px;height:250px;margin: auto;"></div>
+
+<script>
+
+  var trace1 = {
+    x: [17, 23, 25],
+    y: ['Food', 'Transportation', 'Entertainment'],
+    name: 'Spent',
+    orientation: 'h',
+    marker: {
+      color: 'rgba(55,128,191,0.6)',
+      width: 1
+    },
+    type: 'bar'
+  };
+
+  var trace2 = {
+    x: [3, 13, -5],
+    y: ['Food', 'Transportation', 'Entertainment'],
+    name: 'Budget',
+    orientation: 'h',
+    type: 'bar',
+    marker: {
+      color: 'rgba(255,153,51,0.6)',
+      width: 1
+    }
+  };
+
+  var data = [trace1, trace2];
+
+  var layout = {
+    title: 'Mini-budgets',
+    barmode: 'stack'
+  };
+
+  Plotly.newPlot('plotly_div', data, layout)
+
+
+</script>
 
 <!-- the shopping list component from previous project, left for reference
 
