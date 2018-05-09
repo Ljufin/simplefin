@@ -2,16 +2,60 @@
 <html lang="en">
 <head>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
-  <title> Shopping List</title>
+  <title> SimpleFin</title>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
 <body>
 
+<!-- Header/Navbar -->
 <nav>
   <div class="nav-wrapper blue darken-1 z-depth-5">
-    <a class="brand-logo center blue darken-1">ShoppingList</a>
+    <a class="brand-logo center blue darken-1">SimpleFin</a>
   </div>
 </nav>
+
+<!-- Date Panel -->
+
+  <div class="row">
+    <div class="col s12 m2 offset-m10">
+      <div class="card-panel teal">
+
+        <span class="white-text"> </span>
+
+        <script>
+
+          const electron = require('electron')
+          const span = document.querySelector('span')
+
+          var today = new Date()
+          var dd = today.getDate()
+          var mm = today.getMonth()+1
+          var yyyy = today.getFullYear()
+
+          if (dd<10) {
+            dd = '0'+dd
+          }
+
+          if (mm<10) {
+            mm = '0'+mm
+          }
+
+          today = mm+'/'+dd+'/'+yyyy
+          span.textContent = today
+
+
+        </script>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Balance and total budget cards -->
+
+  
+
+
+<!-- the shopping list component from previous project, left for reference
 
 <ul></ul>
 <script>
@@ -46,6 +90,9 @@
   }
 
 </script>
+-->
+
+<!-- Test for plotly, left for reference
 <div id="tester" style="width:600px;height:250px;"></div>
 <script>
 	TESTER = document.getElementById('tester');
@@ -54,5 +101,7 @@
 	y: [1, 2, 4, 8, 16] }], {
 	margin: { t: 0 } } );
 </script>
+-->
+
 </body>
 </html>
