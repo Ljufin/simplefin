@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+  <title> Shopping List</title>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+
+<nav>
+  <div class="nav-wrapper blue darken-1 z-depth-5">
+    <a class="brand-logo center blue darken-1">ShoppingList</a>
+  </div>
+</nav>
+
+<ul></ul>
+<script>
+  const electron = require('electron')
+  const {ipcRenderer} = electron
+  const ul = document.querySelector('ul')
+
+  // catch add item
+  ipcRenderer.on('item:add', function(e,item){
+    ul.className = 'collection'
+    const li = document.createElement('li')
+    li.className = 'collection-item'
+    const itemText = document.createTextNode(item)
+    li.appendChild(itemText)
+    ul.appendChild(li)
+  })
+
+  // clear items
+  ipcRenderer.on('item:clear', function(){
+    ul.innerHTML=''
+    ul.className = ''
+  })
+
+  //remove Items
+  url.addEventListener('click', removeItem)
+
+  function removeItem(e){
+    e.target.remove()
+    if(ul.children.length==0) {
+      ul.className = ''
+    }
+  }
+
+</script>
+<div id="tester" style="width:600px;height:250px;"></div>
+<script>
+	TESTER = document.getElementById('tester');
+	Plotly.plot( TESTER, [{
+	x: [1, 2, 3, 4, 5],
+	y: [1, 2, 4, 8, 16] }], {
+	margin: { t: 0 } } );
+</script>
+</body>
+</html>
