@@ -34,16 +34,6 @@ app.on('ready', function(){
   Menu.setApplicationMenu(mainMenu)
 });
 
-// handle switching to todo screen
-function todoScreen(){
-  // load the new html
-  mainWindow.loadURL(url.format({
-    pathname: path.join(__dirname, 'todoWindow.html'),
-    protocol: 'file:',
-    slashes: true
-  }));
-}
-
 // handle switching to rick-roll screen
 function eastereggScreen(){
   // load the new html
@@ -102,12 +92,7 @@ const mainMenuTemplate = [
           mainWindow.webContents.send('item:clear')
         }
       },
-      {
-        label: 'To Do List',
-        click(){
-          todoScreen()
-        }
-      },
+
       {
         label: 'Quit',
         // shortcuts
