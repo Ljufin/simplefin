@@ -1,17 +1,97 @@
 const electron = require('electron');
 const url = require('url');
 const path = require('path');
+const fs = require('fs');
 
 const {app, BrowserWindow, Menu, ipcMain} = electron;
+
+
+// data structures for user data
+class Transaction {
+  constructor(id, type, note, amount) {
+    this.id = id;
+    this.type = type;
+    this.note = note;
+    this.amount = amount;
+  }
+
+  logInfo() {
+    console.log(this.id+' '+this.type+' '+this.note+' '+this.amount);
+  }
+
+}
+
+class Budget {
+  constructor(name, spent, limit) {
+    this.name = name;
+    this.spent = spent;
+    this.limit = limit;
+  }
+}
+
+let transactions = [];
+let balance = 0;
+let monthlyBud = 0;
+let budgets = [];
+let totalBudPoints = 0;
+let monBudPoints = 0;
 
 // set env
 //process.env.NODE_ENV = 'production'
 
-let mainWindow // main screen
-let addWindow
-
 
 // startup
+
+
+// load transaction file for reading
+// welcome to back to the hell that is system programming
+var text = "unasdjfi"
+fs.open('transactions.txt', 'r', function(err, fd) {
+  if (err) {
+    return console.error(err);
+  }
+  // normal path
+  try {
+
+    text = fs.readFileSync('transactions.txt', 'utf8');
+    //console.log(text);
+} catch(e) {
+    console.log('Error:', e.stack);
+}
+
+
+// Close the opened file.
+      fs.close(fd, function(err){
+         if (err){
+            console.log(err);
+         }
+         //console.log("File closed successfully.");
+      });
+
+});
+console.log(text);
+console.log("really?");
+/**
+// parse text
+let lines = text.split("\n");
+
+let l;
+for (l in lines) {
+  attrs = l.split(" ");
+  t = new Transaction(attrs[0], attrs[1], attrs[2], attrs[3]);
+  transactions.push(t);
+}
+
+let x;
+for (x in transactions) {
+  console.log(x);
+}
+**/
+
+
+let mainWindow; // main screen
+let addWindow;
+
 // listen for app to be ready
 app.on('ready', function(){
   // create new window
@@ -25,13 +105,13 @@ app.on('ready', function(){
 
   // Quit app when closed
   mainWindow.on('closed', function(){
-    app.quit()
-  })
+    app.quit();
+  });
 
   // Build menu from template
   const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
   //insert menu
-  Menu.setApplicationMenu(mainMenu)
+  Menu.setApplicationMenu(mainMenu);
 });
 
 // handle switching to rick-roll screen
