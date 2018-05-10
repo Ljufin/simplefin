@@ -11,44 +11,34 @@
 <nav>
   <div class="nav-wrapper blue darken-1 z-depth-5">
     <a class="brand-logo center blue darken-1">SimpleFin</a>
+    <a id="date" class="brand-logo right">Logo</a>
+    <script>
+
+      const electron = require('electron')
+      const span = document.querySelector("#date")
+
+      var today = new Date()
+      var dd = today.getDate()
+      var mm = today.getMonth()+1
+      var yyyy = today.getFullYear()
+
+      if (dd<10) {
+        dd = '0'+dd
+      }
+
+      if (mm<10) {
+        mm = '0'+mm
+      }
+
+      today = mm+'/'+dd+'/'+yyyy
+      span.textContent = today
+
+
+    </script>
   </div>
 </nav>
 
-<!-- Date Panel -->
 
-  <div class="row">
-    <div class="col s12 m2 offset-m10">
-      <div class="card-panel teal">
-
-        <span class="white-text"> </span>
-
-        <script>
-
-          const electron = require('electron')
-          const span = document.querySelector('span')
-
-          var today = new Date()
-          var dd = today.getDate()
-          var mm = today.getMonth()+1
-          var yyyy = today.getFullYear()
-
-          if (dd<10) {
-            dd = '0'+dd
-          }
-
-          if (mm<10) {
-            mm = '0'+mm
-          }
-
-          today = mm+'/'+dd+'/'+yyyy
-          span.textContent = today
-
-
-        </script>
-
-      </div>
-    </div>
-  </div>
 
   <!-- Balance and total budget cards -->
   <div class="row">
@@ -77,8 +67,8 @@
 <script>
 
   var trace1 = {
-    x: [17, 23, 25],
-    y: ['Food', 'Transportation', 'Entertainment'],
+    x: [17, 23, 25, 50],
+    y: ['Food', 'Transportation', 'Entertainment', 'Misc'],
     name: 'Spent',
     orientation: 'h',
     marker: {
@@ -89,8 +79,8 @@
   };
 
   var trace2 = {
-    x: [3, 13, -5],
-    y: ['Food', 'Transportation', 'Entertainment'],
+    x: [3, 13, -5, 37],
+    y: ['Food', 'Transportation', 'Entertainment', 'Misc'],
     name: 'Budget',
     orientation: 'h',
     type: 'bar',
@@ -109,8 +99,33 @@
 
   Plotly.newPlot('plotly_div', data, layout)
 
-
 </script>
+
+<!-- buget point cards -->
+<div class="row">
+    <div class="col s12 m6">
+      <div class="card blue darken-3 z-depth-2">
+        <div class="card-content white-text">
+          <span class="card-title">Total Budget Points:</span>
+          <p><font size="12">245</font></p>
+        </div>
+      </div>
+    </div>
+    <div class="col s12 m6">
+      <div class="card blue darken-3 z-depth-2">
+        <div class="card-content white-text">
+          <span class="card-title">Monthly Budget Points:</span>
+          <p><font size="12">33</font></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- manage buttons -->
+<div class="row">
+  <a class="waves-effect waves-light btn">Manage Transactions</a>
+  <a class="waves-effect waves-light btn">Manage Budgets</a>
+</div>
 
 <!-- the shopping list component from previous project, left for reference
 
