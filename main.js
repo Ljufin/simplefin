@@ -45,48 +45,18 @@ let monBudPoints = 0;
 
 // load transaction file for reading
 // welcome to back to the hell that is system programming
-var text = "unasdjfi"
-fs.open('transactions.txt', 'r', function(err, fd) {
-  if (err) {
-    return console.error(err);
-  }
-  // normal path
-  try {
+// ironically, the fix was just reducing to one line of code
+var data = fs.readFileSync('transactions.txt', 'utf8');
 
-    text = fs.readFileSync('transactions.txt', 'utf8');
-    //console.log(text);
-} catch(e) {
-    console.log('Error:', e.stack);
-}
+// parse data
+let lines = data.split("\n");
+lines.pop(); // remove the extra newline char
 
-
-// Close the opened file.
-      fs.close(fd, function(err){
-         if (err){
-            console.log(err);
-         }
-         //console.log("File closed successfully.");
-      });
-
-});
-console.log(text);
-console.log("really?");
-/**
-// parse text
-let lines = text.split("\n");
-
-let l;
 for (l in lines) {
-  attrs = l.split(" ");
+  attrs = lines[l].split(" ");
   t = new Transaction(attrs[0], attrs[1], attrs[2], attrs[3]);
   transactions.push(t);
 }
-
-let x;
-for (x in transactions) {
-  console.log(x);
-}
-**/
 
 
 let mainWindow; // main screen
