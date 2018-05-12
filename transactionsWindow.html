@@ -42,6 +42,20 @@
     const {ipcRenderer} = electron
     const ul = document.querySelector('ul')
 
+    // load pre-existing transactions from main.js
+    var transactions = electron.remote.getGlobal('transactions');
+    if (transactions.length !== 0) {
+      ul.className = 'collection';
+
+      for (i in transactions) {
+        const li = document.createElement('li');
+        li.className = 'collection-item';
+        const itemText = document.createTextNode(transactions[i].convertToString());
+        li.appendChild(itemText);
+        ul.appendChild(li);
+      }
+    }
+
     // catch add item and process it
     ipcRenderer.on('item:add', function(e,item){
       ul.className = 'collection'

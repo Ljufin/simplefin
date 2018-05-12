@@ -32,7 +32,7 @@ class Budget {
   }
 }
 
-let transactions = [];
+global.transactions = [];
 let balance = 0;
 let monthlyBud = 0;
 let budgets = [];
