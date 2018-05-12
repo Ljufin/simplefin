@@ -92,6 +92,8 @@
         height: 200,
         title: 'Add Shopping List Item'
       });
+      // remove menu from window
+      //addWindow.setMenu(null);
       // load html into window
       addWindow.loadURL(url.format({
         pathname: path.join(__dirname, 'addWindow.html'),
@@ -104,6 +106,7 @@
         addWindow = null
       })
     }
+
     </script>
   </div>
 

@@ -27,8 +27,11 @@
       e.preventDefault()
       const item = document.querySelector('#item').value
       ipcRenderer.send('item:add', item)
+      // close the window
+      const {remote} = electron;
+      var window = remote.getCurrentWindow();
+      window.close();
     }
-
   </script>
 
 
