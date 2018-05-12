@@ -48,15 +48,15 @@ let monBudPoints = 0;
 // ironically, the fix was just reducing to one line of code
 var data = fs.readFileSync('transactions.txt', 'utf8');
 
-// parse data
+// parse text and add to transactions
 let lines = data.split("\n");
 lines.pop(); // remove the extra newline char
-
 for (l in lines) {
   attrs = lines[l].split(" ");
   t = new Transaction(attrs[0], attrs[1], attrs[2], attrs[3]);
   transactions.push(t);
 }
+
 
 
 let mainWindow; // main screen
@@ -115,12 +115,21 @@ function createAddWindow(){
   })
 }
 
+
 // catch item:addWindow
 ipcMain.on('item:add', function(e, item){
   //console.log(item)
   mainWindow.webContents.send('item:add', item)
   addWindow.close()
 })
+
+ipcMain.on('load:page', (event, arg) => {
+  mainWindow.loadURL(url.format({
+    pathname: path.join(__dirname, arg),
+    protocol: 'file:',
+    slashes: true
+  }));
+});
 
 // create menu template
 const mainMenuTemplate = [

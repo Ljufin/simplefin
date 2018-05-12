@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+  <title> SimpleFin</title>
+</head>
+
+<body>
+  <!-- Header/Navbar same as in main window-->
+  <nav>
+    <div class="nav-wrapper blue darken-1 z-depth-5">
+      <a class="brand-logo center blue darken-1">SimpleFin</a>
+      <a id="date" class="brand-logo right">Logo</a>
+      <script>
+
+        const electron = require('electron')
+        const span = document.querySelector("#date")
+
+        var today = new Date()
+        var dd = today.getDate()
+        var mm = today.getMonth()+1
+        var yyyy = today.getFullYear()
+
+        if (dd<10) {
+          dd = '0'+dd
+        }
+
+        if (mm<10) {
+          mm = '0'+mm
+        }
+
+        today = mm+'/'+dd+'/'+yyyy
+        span.textContent = today
+
+      </script>
+    </div>
+  </nav>
+
+  <!-- list of transactions -->
+  <ul></ul>
+  <script>
+    const {ipcRenderer} = electron
+    const ul = document.querySelector('ul')
+
+    // catch add item
+    ipcRenderer.on('item:add', function(e,item){
+      ul.className = 'collection'
+      const li = document.createElement('li')
+      li.className = 'collection-item'
+      const itemText = document.createTextNode(item)
+      li.appendChild(itemText)
+      ul.appendChild(li)
+    })
+
+    // clear items
+    ipcRenderer.on('item:clear', function(){
+      ul.innerHTML=''
+      ul.className = ''
+    })
+
+    //remove Items
+    ul.addEventListener('click', removeItem)
+
+    function removeItem(e){
+      e.target.remove()
+      if(ul.children.length==0) {
+        ul.className = ''
+      }
+    }
+
+  </script>
+
+  <!-- manage buttons -->
+  <div class="row">
+    <a class="waves-effect waves-light btn" onclick="backToMain()">Back</a>
+    <script>
+      function backToMain(){
+        const {ipcRenderer} = electron;
+        ipcRenderer.send('load:page', 'mainWindow.html');
+      }
+    </script>
+    <a class="waves-effect waves-light btn" onclick="createAddWindow();">Add</a>
+    <script>
+      const BrowserWindow = electron.remote.BrowserWindow;
+      const url = require('url');
+      const path = require('path');
+      // Handle create add window
+      function createAddWindow(){
+        // create new window
+        addWindow = new BrowserWindow({
+        width: 300,
+        height: 200,
+        title: 'Add Shopping List Item'
+      });
+      // load html into window
+      addWindow.loadURL(url.format({
+        pathname: path.join(__dirname, 'addWindow.html'),
+        protocol: 'file:',
+        slashes: true
+      }));
+
+      // Garbage collection handler
+      addWindow.on('close', function(){
+        addWindow = null
+      })
+    }
+    </script>
+  </div>
+
+</body>
+</html>

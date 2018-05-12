@@ -102,6 +102,7 @@
 </script>
 
 <!-- buget point cards -->
+<!-- not in the first version
 <div class="row">
     <div class="col s12 m6">
       <div class="card blue darken-3 z-depth-2">
@@ -120,10 +121,17 @@
       </div>
     </div>
   </div>
-
+-->
 <!-- manage buttons -->
+<script>
+function loadTransWindow(){
+  const {ipcRenderer} = electron;
+  ipcRenderer.send('load:page', 'transactionsWindow.html');
+}
+</script>
 <div class="row">
-  <a class="waves-effect waves-light btn">Manage Transactions</a>
+  <a class="waves-effect waves-light btn" onclick="loadTransWindow()">Manage Transactions</a>
+
   <a class="waves-effect waves-light btn">Manage Budgets</a>
 </div>
 
