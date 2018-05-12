@@ -42,7 +42,7 @@
     const {ipcRenderer} = electron
     const ul = document.querySelector('ul')
 
-    // catch add item
+    // catch add item and process it
     ipcRenderer.on('item:add', function(e,item){
       ul.className = 'collection'
       const li = document.createElement('li')

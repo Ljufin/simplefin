@@ -33,7 +33,8 @@
       const itemType = document.querySelector('#type').value;
       const itemNote = document.querySelector('#note').value;
       const itemAmount = document.querySelector('#amount').value;
-      const item = itemType+" || "+itemNote+" || $"+itemAmount;
+      // send data as a list to main.js
+      const item = [itemType, itemNote, itemAmount];
       ipcRenderer.send('item:add', item)
       // close the window
       const {remote} = electron;

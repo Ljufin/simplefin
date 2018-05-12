@@ -18,6 +18,9 @@ class Transaction {
   logInfo() {
     console.log(this.id+' '+this.type+' '+this.note+' '+this.amount);
   }
+  convertToString() {
+    return "#" + this.id + " || " + this.type + " || " + this.note + " || $" + this.amount;
+  }
 
 }
 
@@ -117,8 +120,12 @@ function createAddWindow(){
 
 // catch item:addWindow
 ipcMain.on('item:add', function(e, item){
-  // console.log(item)
-  mainWindow.webContents.send('item:add', item)
+
+  // process data from addWindow form
+  let t = new Transaction(item.length, item[0], item[1], item[2]);
+  transactions.push(t);
+  // change to string format and then send
+  mainWindow.webContents.send('item:add', t.convertToString())
    //addWindow.close() //doesn't work because addWindow is now created in transactionsWindow.html
 })
 
