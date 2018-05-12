@@ -117,9 +117,9 @@ function createAddWindow(){
 
 // catch item:addWindow
 ipcMain.on('item:add', function(e, item){
-  console.log(item)
+  // console.log(item)
   mainWindow.webContents.send('item:add', item)
-  // addWindow.close() doesn't work because addWindow is now created in transactionsWindow.html
+   //addWindow.close() //doesn't work because addWindow is now created in transactionsWindow.html
 })
 
 
