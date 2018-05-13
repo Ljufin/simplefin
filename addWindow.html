@@ -30,8 +30,8 @@
     function submitForm(e){
       e.preventDefault();
       // retrieve all fields
-      const itemType = document.querySelector('#type').value;
-      const itemNote = document.querySelector('#note').value;
+      const itemType = document.querySelector('#type').value.replace(/ /g,"_"); // spaces are bad
+      const itemNote = document.querySelector('#note').value.replace(/ /g,"_");
       const itemAmount = document.querySelector('#amount').value;
       // send data as a list to main.js
       const item = [itemType, itemNote, itemAmount];

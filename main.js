@@ -18,8 +18,15 @@ class Transaction {
   logInfo() {
     console.log(this.id+' '+this.type+' '+this.note+' '+this.amount);
   }
+
+  // used in the list of transactions in transactionsWindow
   convertToString() {
     return "#" + this.id + " || " + this.type + " || " + this.note + " || $" + this.amount;
+  }
+
+  // converts given transactions back to the format found in original file
+  fileString() {
+    return this.id + " " + this.type + " " + this.note + " " + this.amount;
   }
 
 }
@@ -76,6 +83,23 @@ app.on('ready', function(){
     slashes: true
   }));
 
+  app.on('before-quit', function(){
+    // shutdown procedure
+
+    // save transactions to a file
+    // convert back to string format
+    var filetext = "";
+    for (i in transactions) {
+      filetext += transactions[i].fileString();
+      filetext += "\n";
+    }
+
+    fs.writeFile('transactions.txt', filetext, 'utf8', function(err) {
+      if(err) {
+        return console.log(err);
+    }});
+  });
+
   // Quit app when closed
   mainWindow.on('closed', function(){
     app.quit();
@@ -122,7 +146,7 @@ function createAddWindow(){
 ipcMain.on('item:add', function(e, item){
 
   // process data from addWindow form
-  let t = new Transaction(item.length, item[0], item[1], item[2]);
+  let t = new Transaction(transactions.length, item[0], item[1], item[2]);
   transactions.push(t);
   // change to string format and then send
   mainWindow.webContents.send('item:add', t.convertToString())
