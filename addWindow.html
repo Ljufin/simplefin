@@ -9,11 +9,11 @@
   <form>
     <div>
       <label>Type:</label>
-      <input type="text" id="type" autofocus>
+      <input type="text" id="type" autofocus required>
       <label>Note:</label>
-      <input type="text" id="note">
+      <input type="text" id="note" required>
       <label>Amount</label>
-      <input type="text" id="amount">
+      <input type="text" id="amount" required>
     </div>
     <button class="btn waves-effect waves-light"
     type="submit">Add</button>
@@ -33,6 +33,7 @@
       const itemType = document.querySelector('#type').value.replace(/ /g,"_"); // spaces are bad
       const itemNote = document.querySelector('#note').value.replace(/ /g,"_");
       const itemAmount = document.querySelector('#amount').value;
+
       // send data as a list to main.js
       const item = [itemType, itemNote, itemAmount];
       ipcRenderer.send('item:add', item)
