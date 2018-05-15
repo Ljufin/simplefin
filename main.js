@@ -41,7 +41,7 @@ class Budget {
 
 global.transactions = [];
 global.balance = 2781.53;
-let monthlyBud = 0;
+global.monthlyBud = 100.00;
 let budgets = [];
 let totalBudPoints = 0;
 let monBudPoints = 0;
@@ -148,8 +148,9 @@ ipcMain.on('item:add', function(e, item){
   // process data from addWindow form
   let t = new Transaction(transactions.length, item[0], item[1], item[2]);
   transactions.push(t);
-  // decrease the total balance
+  // decrease the total balance and the monthly budget left
   balance -= Number(t.amount);
+  monthlyBud -= Number(t.amount);
   // change to string format and then send
   mainWindow.webContents.send('item:add', t.convertToString())
    //addWindow.close() //doesn't work because addWindow is now created in transactionsWindow.html
