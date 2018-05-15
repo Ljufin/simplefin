@@ -11,7 +11,7 @@
 <nav>
   <div class="nav-wrapper blue darken-1 z-depth-5">
     <a class="brand-logo center blue darken-1">SimpleFin</a>
-    <a id="date" class="brand-logo right">Logo</a>
+    <a id="date" class="brand-logo right"></a>
     <script>
 
       const electron = require('electron')
@@ -46,7 +46,7 @@
         <div class="card blue darken-3 z-depth-2">
           <div class="card-content white-text">
             <span class="card-title">Current Balance:</span>
-            <p><font size="12">$2,717.87</font></p>
+            <p id="balanceCardNumber"><font size="12">$2,717.87</font></p>
           </div>
         </div>
       </div>
@@ -54,11 +54,27 @@
         <div class="card blue darken-3 z-depth-2">
           <div class="card-content white-text">
             <span class="card-title">Monthly Budget Left:</span>
-            <p><font size="12">$77.34</font></p>
+            <p id="budgetCardNumber"><font size="12">$77.34</font></p>
           </div>
         </div>
       </div>
     </div>
+    <script>
+
+
+      // total all the amounts in transactions
+      var transactions = electron.remote.getGlobal('transactions');
+      var sum = 0;
+      for (i in transactions) {
+        sum += Number(transactions[i].amount);
+      }
+
+      // select the card and update
+      const balanceCardNumber = document.querySelector("#balanceCardNumber");
+      balanceCardNumber.textContent = '$'+electron.remote.getGlobal('balance');
+      balanceCardNumber.style.fontSize = "xx-large";
+
+    </script>
 
 <!-- mini-budgets -->
 
