@@ -81,12 +81,11 @@
 
     </script>
 
-<!-- mini-budgets -->
-
-<div id="plotly_div" style="width:600px;height:250px;margin: auto;"></div>
+<!-- pie charts -->
+<div id="plotly_div" style="width:600px;height:400px;margin: auto;"></div>
 
 <script>
-
+  /**
   var trace1 = {
     x: [17, 23, 25, 50],
     y: ['Food', 'Transportation', 'Entertainment', 'Misc'],
@@ -119,6 +118,45 @@
   };
 
   Plotly.newPlot('plotly_div', data, layout)
+  **/
+
+var data = [{
+  values: [2781.53, 100.00],
+  labels: ['Balance', 'Monthly Budget'],
+  type: 'pie',
+  name: 'Monthly Budget',
+  marker: {
+    colors: ['rgb(48, 115, 204)','rgb(41, 188, 124)']
+  },
+  domain: {
+    x: [0, .48],
+    y: [0, .49]
+  },
+  hoverinfo: 'label+percent',
+  textinfo: 'value'
+},{
+  values: [100.00-(100.00-27.37),100.00-27.37],
+  labels: ['Monthly Budget Left', 'Amount Spent'],
+  type: 'pie',
+  name: 'Current Spending',
+  marker: {
+    colors: ['rgb(41, 188, 124)', 'rgb(255, 99, 99)']
+  },
+  domain: {
+    x: [0.52, 1],
+    y: [0, .49]
+  },
+  hoverinfo: 'label+percent',
+  textinfo: 'value'
+}];
+
+var layout = {
+  autosize: true,
+  //height:400,
+  //width:500
+};
+
+Plotly.newPlot('plotly_div', data, layout, {staticPlot: true});
 
 </script>
 
