@@ -171,22 +171,6 @@ const mainMenuTemplate = [
     label: 'File',
     submenu:[
       {
-        label: 'Add Item',
-        // shortcuts
-        accelerator: process.platform == 'darwin' ? 'Command+T' :
-        'Ctrl+T',
-        click(){
-          createAddWindow();
-        }
-      },
-      {
-        label: 'Clear Items',
-        click(){
-          mainWindow.webContents.send('item:clear')
-        }
-      },
-
-      {
         label: 'Quit',
         // shortcuts
         accelerator: process.platform == 'darwin' ? 'Command+Q' :
