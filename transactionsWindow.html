@@ -67,44 +67,7 @@
       ul.appendChild(li)
     })
 
-    /** NOT NEEDED FOR MINIMAL VIABLE PRODUCT
-    // clear items
-    ipcRenderer.on('item:clear', function(){
-      ul.innerHTML=''
-      ul.className = ''
-    })
-
-
-    //remove Items
-    // launch confirm window
-    ul.addEventListener('click', removeItem)
-
-    confirmWindow = new BrowserWindow({
-    width: 300,
-    height: 300,
-    title: 'Confirm',
-    });
-    // remove menu from window
-
-    // load html into window
-    addWindow.loadURL(url.format({
-    pathname: path.join(__dirname, 'removeConfirmWindow.html'),
-    protocol: 'file:',
-    slashes: true
-    }));
-
-    // Garbage collection handler
-    addWindow.on('close', function(){
-      addWindow = null
-    });
-
-    function removeItem(e){
-      e.target.remove()
-      if(ul.children.length==0) {
-        ul.className = ''
-      }
-    }
-    **/
+    
   </script>
 
   <!-- manage buttons -->
