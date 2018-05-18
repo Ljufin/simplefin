@@ -21,7 +21,7 @@ class Transaction {
 
   // used in the list of transactions in transactionsWindow
   convertToString() {
-    return "#" + this.id + " || " + this.type + " || " + this.note + " || $" + this.amount;
+    return "#" + this.id + " -- " + this.type + " -- " + this.note + " -- $" + this.amount;
   }
 
   // converts given transactions back to the format found in original file

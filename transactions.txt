@@ -3,5 +3,3 @@
 2 entertainment infinity_war 14.45
 3 misc Derek's_mission_trip 25.00
 4 food ice_cream_sandwiches 5.45
-5 misc running_shoes 120.00
-6 income payday -134.65
