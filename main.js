@@ -42,9 +42,7 @@ class Budget {
 global.transactions = [];
 global.balance = 2781.53;
 global.monthlyBud = 100.00;
-let budgets = [];
-let totalBudPoints = 0;
-let monBudPoints = 0;
+global.budRemaining = monthlyBud;
 
 // set env
 //process.env.NODE_ENV = 'production'
@@ -65,6 +63,11 @@ for (l in lines) {
   attrs = lines[l].split(" ");
   t = new Transaction(attrs[0], attrs[1], attrs[2], attrs[3]);
   transactions.push(t);
+}
+
+// calculate budRemaining
+for (i in transactions) {
+  budRemaining -= transactions[i].amount;
 }
 
 
@@ -150,7 +153,7 @@ ipcMain.on('item:add', function(e, item){
   transactions.push(t);
   // decrease the total balance and the monthly budget left
   balance -= Number(t.amount);
-  monthlyBud -= Number(t.amount);
+  budRemaining -= Number(t.amount);
   // change to string format and then send
   mainWindow.webContents.send('item:add', t.convertToString())
    //addWindow.close() //doesn't work because addWindow is now created in transactionsWindow.html

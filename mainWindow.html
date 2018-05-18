@@ -61,17 +61,17 @@
     </div>
     <script>
 
-
+      /**
       // total all the amounts in transactions
       var transactions = electron.remote.getGlobal('transactions');
       var sum = 0;
       for (i in transactions) {
         sum += Number(transactions[i].amount);
-      }
+      } **/
 
       // subtract from current monthly budget
       const budgetCardNumber = document.querySelector("#budgetCardNumber");
-      budgetCardNumber.textContent = '$'+(electron.remote.getGlobal('monthlyBud')-sum).toFixed(2);
+      budgetCardNumber.textContent = '$'+(electron.remote.getGlobal('budRemaining')).toFixed(2);
       budgetCardNumber.style.fontSize = "xx-large";
 
       // select the card and update
@@ -86,8 +86,15 @@
 
 <script>
 
+// get all required data
+var transactions = electron.remote.getGlobal('transactions');
+var balance = electron.remote.getGlobal('balance');
+var monthlyBud = electron.remote.getGlobal('monthlyBud');
+var budRemaining = electron.remote.getGlobal('budRemaining');
+var spent = monthlyBud-budRemaining;
+
 var data = [{
-  values: [2781.53, 100.00],
+  values: [balance, monthlyBud],
   labels: ['Balance', 'Monthly Budget'],
   type: 'pie',
   name: 'Monthly Budget',
@@ -101,7 +108,7 @@ var data = [{
   hoverinfo: 'label+percent',
   textinfo: 'value'
 },{
-  values: [100.00-(100.00-27.37),100.00-27.37],
+  values: [budRemaining,spent],
   labels: ['Monthly Budget Left', 'Amount Spent'],
   type: 'pie',
   name: 'Current Spending',
