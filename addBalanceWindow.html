@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+  <title> Add Transaction</title>
+</head>
+<body>
+  <div class="container">
+  <form>
+    <div>
+      <label>Amount to add:</label>
+      <input type="text" id="amount" required>
+    </div>
+    <button class="btn waves-effect waves-light"
+    type="submit">Add</button>
+  </form>
+</div>
+
+  <script>
+    const electron = require('electron')
+    const {ipcRenderer} = electron
+
+    const form = document.querySelector('form')
+    form.addEventListener('submit', submitForm)
+
+    function submitForm(e){
+      e.preventDefault();
+      // retrieve fields
+      const itemAmount = Number(document.querySelector('#amount').value);
+
+      ipcRenderer.send('balance:add', itemAmount)
+      // close the window
+      const {remote} = electron;
+      var window = remote.getCurrentWindow();
+      window.close();
+    }
+  </script>
+
+
+</body>
+</html>

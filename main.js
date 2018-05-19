@@ -70,6 +70,14 @@ for (i in transactions) {
   budRemaining -= transactions[i].amount;
 }
 
+// load persistent data
+var persist = fs.readFileSync('persist.dat', 'utf8');
+let persistent_values = persist.split('\n');
+persistent_values.pop();
+
+balance = persistent_values[0];
+monthlyBud = persistent_values[1];
+
 
 
 let mainWindow; // main screen
@@ -101,6 +109,16 @@ app.on('ready', function(){
       if(err) {
         return console.log(err);
     }});
+
+    // write to persist.dat
+    var persist_text = "";
+    persist_text += balance+"\n"+monthlyBud+"\n";
+
+    fs.writeFile('persist.dat', persist_text, 'utf8', function(err) {
+      if(err) {
+        return console.log(err);
+    }});
+
   });
 
   // Quit app when closed
@@ -157,6 +175,11 @@ ipcMain.on('item:add', function(e, item){
   // change to string format and then send
   mainWindow.webContents.send('item:add', t.convertToString())
    //addWindow.close() //doesn't work because addWindow is now created in transactionsWindow.html
+})
+
+ipcMain.on('balance:add', function(e, amount){
+
+  balance += Number(amount);
 })
 
 

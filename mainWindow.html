@@ -46,7 +46,7 @@
         <div class="card blue darken-3 z-depth-2">
           <div class="card-content white-text">
             <span class="card-title">Current Balance:</span>
-            <p id="balanceCardNumber"><font size="12">$2,717.87</font></p>
+            <p id="balanceCardNumber"><font size="12">null</font></p>
           </div>
         </div>
       </div>
@@ -61,22 +61,15 @@
     </div>
     <script>
 
-      /**
-      // total all the amounts in transactions
-      var transactions = electron.remote.getGlobal('transactions');
-      var sum = 0;
-      for (i in transactions) {
-        sum += Number(transactions[i].amount);
-      } **/
 
       // subtract from current monthly budget
       const budgetCardNumber = document.querySelector("#budgetCardNumber");
-      budgetCardNumber.textContent = '$'+(electron.remote.getGlobal('budRemaining')).toFixed(2);
+      budgetCardNumber.textContent = '$'+Number((electron.remote.getGlobal('budRemaining'))).toFixed(2);
       budgetCardNumber.style.fontSize = "xx-large";
 
       // select the card and update
       const balanceCardNumber = document.querySelector("#balanceCardNumber");
-      balanceCardNumber.textContent = '$'+electron.remote.getGlobal('balance').toFixed(2);
+      balanceCardNumber.textContent = '$'+Number(electron.remote.getGlobal('balance')).toFixed(2);
       balanceCardNumber.style.fontSize = "xx-large";
 
     </script>
@@ -144,7 +137,37 @@ function loadTransWindow(){
 <div class="row">
   <a class="waves-effect waves-light btn" onclick="loadTransWindow()">Manage Transactions</a>
 
-  <!--<a class="waves-effect waves-light btn">Manage Budgets</a>-->
+  <a class="waves-effect waves-light btn" onclick="createBalanceWindow()">Add Balance</a>
+  <a class="waves-effect waves-light btn">Set Budget</a>
+  <script>
+    const BrowserWindow = electron.remote.BrowserWindow;
+    const url = require('url');
+    const path = require('path');
+
+    function createBalanceWindow() {
+      addWindow = new BrowserWindow({
+      width: 300,
+      height: 300,
+      title: 'Add Balance'
+    });
+
+    addWindow.loadURL(url.format({
+      pathname: path.join(__dirname, 'addBalanceWindow.html'),
+      protocol: 'file:',
+      slashes: true
+    }));
+
+    // Garbage collection handler
+    addWindow.on('close', function(){
+      addWindow = null
+    })
+
+    }
+
+    function createBudgetWindow() {
+
+    }
+  </script>
 </div>
 
 
