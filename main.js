@@ -184,6 +184,17 @@ ipcMain.on('balance:add', function(e, amount){
   mainWindow.webContents.send('balance:add', amount);
 })
 
+ipcMain.on('budget:update', function(e, amount){
+  // temp to recalculate budget remaining
+  let deltaBud = amount-monthlyBud;
+  // set monthly budget to new value
+  monthlyBud = Number(amount);
+  // recalculate budget remaining
+  budRemaining += deltaBud;
+  // update UI
+  mainWindow.webContents.send('budget:update', budRemaining);
+})
+
 
 ipcMain.on('load:page', (event, arg) => {
   mainWindow.loadURL(url.format({

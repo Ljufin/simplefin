@@ -81,6 +81,12 @@
         balanceCardNumber.style.fontSize = "xx-large";
       })
 
+      ipcRenderer.on('budget:update', function(e,newBudget){
+        const budgetCardNumber = document.querySelector("#budgetCardNumber");
+        budgetCardNumber.textContent = '$'+Number(newBudget).toFixed(2);
+        budgetCardNumber.style.fontSize = "xx-large";
+      })
+
     </script>
 
 <!-- pie charts -->
@@ -147,7 +153,7 @@ function loadTransWindow(){
   <a class="waves-effect waves-light btn" onclick="loadTransWindow()">Manage Transactions</a>
 
   <a class="waves-effect waves-light btn" onclick="createBalanceWindow()">Add Balance</a>
-  <a class="waves-effect waves-light btn">Set Budget</a>
+  <a class="waves-effect waves-light btn" onclick="createBudgetWindow()">Set Budget</a>
   <script>
     const BrowserWindow = electron.remote.BrowserWindow;
     const url = require('url');
@@ -170,11 +176,25 @@ function loadTransWindow(){
     addWindow.on('close', function(){
       addWindow = null
     })
-
-    }
+  }
 
     function createBudgetWindow() {
+      addWindow = new BrowserWindow({
+      width: 300,
+      height: 300,
+      title: 'Update Buget'
+    });
 
+    addWindow.loadURL(url.format({
+      pathname: path.join(__dirname, 'updateBudgetWindow.html'),
+      protocol: 'file:',
+      slashes: true
+    }));
+
+    // Garbage collection handler
+    addWindow.on('close', function(){
+      addWindow = null
+    })
     }
   </script>
 </div>
