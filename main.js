@@ -75,7 +75,7 @@ var persist = fs.readFileSync('persist.dat', 'utf8');
 let persistent_values = persist.split('\n');
 persistent_values.pop();
 
-balance = persistent_values[0];
+balance = Number(persistent_values[0]);
 monthlyBud = persistent_values[1];
 
 
@@ -178,8 +178,10 @@ ipcMain.on('item:add', function(e, item){
 })
 
 ipcMain.on('balance:add', function(e, amount){
-
+  // add to balance
   balance += Number(amount);
+  // update UI
+  mainWindow.webContents.send('balance:add', amount);
 })
 
 

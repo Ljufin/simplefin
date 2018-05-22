@@ -72,6 +72,15 @@
       balanceCardNumber.textContent = '$'+Number(electron.remote.getGlobal('balance')).toFixed(2);
       balanceCardNumber.style.fontSize = "xx-large";
 
+
+      // catch adding to balance and update card
+      const {ipcRenderer} = electron;
+      ipcRenderer.on('balance:add', function(e,amount){
+        const balanceCardNumber = document.querySelector("#balanceCardNumber");
+        balanceCardNumber.textContent = '$'+Number(electron.remote.getGlobal('balance')+amount).toFixed(2);
+        balanceCardNumber.style.fontSize = "xx-large";
+      })
+
     </script>
 
 <!-- pie charts -->
@@ -169,7 +178,6 @@ function loadTransWindow(){
     }
   </script>
 </div>
-
 
 </body>
 </html>
